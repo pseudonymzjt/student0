@@ -61,7 +61,12 @@ word_count_t* add_word(word_count_list_t* wclist, char* word) {
 }
 
 void fprint_words(word_count_list_t* wclist, FILE* outfile) {
-  /* TODO */
+  struct list_elem * e;
+  for(e = list_begin(wclist); e != list_end(wclist); e = list_next(e))
+  {
+    word_count_t* wc = list_entry(e, word_count_t, wclist);
+    fprintf(outfile, "%i\t%s\n", wc->count, wc->word);
+  }
   /* Please follow this format: fprintf(<file>, "%i\t%s\n", <count>, <word>); */
 }
 
