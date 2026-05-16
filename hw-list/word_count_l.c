@@ -64,18 +64,24 @@ void fprint_words(word_count_list_t* wclist, FILE* outfile) {
   struct list_elem * e;
   for(e = list_begin(wclist); e != list_end(wclist); e = list_next(e))
   {
-    word_count_t* wc = list_entry(e, word_count_t, wclist);
+    word_count_t* wc = list_entry(e, word_count_t, elem);
     fprintf(outfile, "%i\t%s\n", wc->count, wc->word);
   }
   /* Please follow this format: fprintf(<file>, "%i\t%s\n", <count>, <word>); */
 }
 
+typedef bool (*wc_less_func)(const word_count_t*, const word_count_t*);
+
 static bool less_list(const struct list_elem* ewc1, const struct list_elem* ewc2, void* aux) {
-  /* TODO */
-  return false;
+    word_count_t* wc1 = list_entry(ewc1, word_count_t, elem);
+    word_count_t* wc2 = list_entry(ewc2, word_count_t, elem);
+    
+    wc_less_func real_less = (wc_less_func)aux;
+    
+    return real_less(wc1, wc2);
 }
 
 void wordcount_sort(word_count_list_t* wclist,
                     bool less(const word_count_t*, const word_count_t*)) {
-  list_sort(wclist, less_list, less);
+    list_sort(wclist, less_list, (void*)less);
 }
