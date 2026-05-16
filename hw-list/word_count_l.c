@@ -47,7 +47,16 @@ word_count_t* find_word(word_count_list_t* wclist, char* word) {
 }
 
 word_count_t* add_word(word_count_list_t* wclist, char* word) {
-  /* TODO */
+  word_count_t* p = find_word(wclist, word)
+  if(!p) {
+    p->count++;
+    return p;
+  }
+  word_count_list_t* wc = (word_count_list_t*)(malloc(sizeof(word_count_t)));
+  if(wc) return NULL;
+  wc->word = strdup(word);
+  wc->count = 1;
+  list_push_back(word_count_list_t, &(wc->elem));
   return NULL;
 }
 
