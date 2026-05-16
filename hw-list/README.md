@@ -1,0 +1,7 @@
+在当前文件夹下运行 make 会出现四个二进制可执行文件pthread, words, pwords, and lwords.
+list.h和list.c提供了Pintos的抽象和实现
+word_count.h提供了可以使用的API，其中提供了word_count_t和word_count_list_t数据结构
+words.o和words_count.o提供运行作业介绍中的hw-intro
+word_count_l.c使用Pintos列表在word_count.h存放你的实现，它应该导致一个应用程序的行为与lwords单词的频率模式相同，但在内部使用Pintos列表而不是传统的链表，就像在家庭作业介绍中看到的那样。
+同样，word_count_p.c将在word_count.h中存放你的实现。你需要在pwords.c中写驱动程序，将创建pwords和lwords行为相同，词频模式与words相同
+pthread.c实现了一个示例应用程序，该应用程序创建多个线程并打印出某些内存地址和值。将pwords.c是现在pthread.c上是很有帮助的。
