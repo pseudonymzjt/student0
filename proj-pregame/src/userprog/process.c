@@ -473,11 +473,13 @@ static bool setup_stack(void** esp) {
   if (kpage != NULL) {
     success = install_page(((uint8_t*)PHYS_BASE) - PGSIZE, kpage, true);
     if (success) {
-      *esp = PHYS_BASE - 12;
+      *esp = PHYS_BASE - 20;
       int *stack = (int *)(kpage + PGSIZE);
-      stack[-1] = 0;   // argv = NULL
-      stack[-2] = 1;   // argc = 1
-      stack[-3] = 0;   // dummy return address
+      stack[-1] = 0;
+      stack[-2] = 0;
+      stack[-3] = 0;   // argv = NULL
+      stack[-4] = 1;   // argc = 1
+      stack[-5] = 0;   // dummy return address
     }
     else
       palloc_free_page(kpage);
